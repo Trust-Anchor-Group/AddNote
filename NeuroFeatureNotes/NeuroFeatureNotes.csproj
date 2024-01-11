@@ -4,7 +4,30 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>NeuroFeatureNotes</PackageId>
+    <Title>Neuro-Feature Notes</Title>
+    <Version>1.0.0</Version>
+    <Authors>Peter Waher</Authors>
+    <Company>Trust Anchor Group AB</Company>
+    <Product>TAG Neuron</Product>
+    <Description>.NET standard implementation allowing the client to add external notes on Neuro-Feature tokens.</Description>
+    <Copyright>Copyright © Trust Anchor Group AB 2024. All rights reserved.</Copyright>
+    <PackageProjectUrl>https://github.com/Trust-Anchor-Group/AddNote</PackageProjectUrl>
+    <PackageIcon>Tag64x64.png</PackageIcon>
+    <RepositoryUrl>https://github.com/Trust-Anchor-Group/AddNote</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>TAG Neuron Neuro-Features Notes</PackageTags>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\Resources\Tag64x64.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Waher.Content" Version="2.6.7" />
