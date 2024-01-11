@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Add Text Note": {
+      "commandName": "Project",
+      "commandLineArgs": "-d lab.tagroot.io -u NoteTest -t 5e8de9c3-2a50-409a-bbe9-36df465ae696@edaler.lab.tagroot.io -n \"This is a test.\""
+    }
+  }
+}
