@@ -28,8 +28,8 @@ Add the [NeuroFeatureNotes nuget](https://www.nuget.org/packages/NeuroFeatureNot
 /// <param name="CertificatePassword">Password to use with <paramref name="CertificateFileName"/>.</param>
 /// <param name="TokenId">ID token Neuro-Feature token.</param>
 /// <param name="Note">Note to add (either text or XML).</param>
-public static Task<object> AddNote(string DomainName, string CertificateFileName, string CertificatePassword, 
-	string TokenId, string Note);
+public static Task<object> AddNote(string DomainName, string CertificateFileName, 
+	string CertificatePassword, string TokenId, string Note);
 
 /// <summary>
 /// Adds a note (either text or XML) to a Neuro-Feature token.
@@ -38,7 +38,8 @@ public static Task<object> AddNote(string DomainName, string CertificateFileName
 /// <param name="Certificate">Certificate for mTLS authentication.</param>
 /// <param name="TokenId">ID token Neuro-Feature token.</param>
 /// <param name="Note">Note to add (either text or XML).</param>
-public static async Task<object> AddNote(string DomainName, X509Certificate Certificate, string TokenId, string Note);
+public static async Task<object> AddNote(string DomainName, X509Certificate Certificate, 
+	string TokenId, string Note);
 ```
 
 
