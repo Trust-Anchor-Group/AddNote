@@ -124,6 +124,10 @@ internal class Program
 				Console.Out.WriteLine("-fn FILENAME           Same as -f FILENAME.");
 				Console.Out.WriteLine("-file FILENAME         Same as -f FILENAME.");
 				Console.Out.WriteLine("-filename FILENAME     Same as -f FILENAME.");
+				Console.Out.WriteLine();
+				Console.Out.WriteLine("-?                     Prints this help.");
+				Console.Out.WriteLine("-h                     Same as -?.");
+				Console.Out.WriteLine("-help                  Same as -?.");
 
 				if (c == 1)
 					return 0;
