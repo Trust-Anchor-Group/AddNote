@@ -9,8 +9,8 @@ internal class Program
 		try
 		{
 			string? DomainName = null;
-			string? UserName = null;
-			string? Password = null;
+			string? CertificateFileName = null;
+			string? CertificatePassword = null;
 			string? TokenId = null;
 			string? NoteFileName = null;
 			string? Note = null;
@@ -30,22 +30,23 @@ internal class Program
 						DomainName = args[i++];
 						break;
 
-					case "-u":
-					case "-user":
-					case "-username":
+					case "-c":
+					case "-crt":
+					case "-cert":
+					case "-certificate":
 						if (i >= c)
-							throw new Exception("Expected user name.");
+							throw new Exception("Expected certificate file name.");
 
-						UserName = args[i++];
+						CertificateFileName = args[i++];
 						break;
 
 					case "-p":
 					case "-pwd":
 					case "-password":
 						if (i >= c)
-							throw new Exception("Expected password.");
+							throw new Exception("Expected certificate password.");
 
-						Password = args[i++];
+						CertificatePassword = args[i++];
 						break;
 
 					case "-t":
@@ -99,29 +100,30 @@ internal class Program
 				Console.Out.WriteLine();
 				Console.Out.WriteLine("Command-line arguments:");
 				Console.Out.WriteLine("==========================");
-				Console.Out.WriteLine("-d DOMAIN           Specifies the domain name of the Neuron hosting the token.");
-				Console.Out.WriteLine("-domain DOMAIN      Same as -d DOMAIN.");
+				Console.Out.WriteLine("-d DOMAIN              Specifies the domain name of the Neuron hosting the token.");
+				Console.Out.WriteLine("-domain DOMAIN         Same as -d DOMAIN.");
 				Console.Out.WriteLine();
-				Console.Out.WriteLine("-u USERNAME         Specifies the user name to use when adding the note.");
-				Console.Out.WriteLine("-user USERNAME      Same as -u USERNAME.");
-				Console.Out.WriteLine("-username USERNAME  Same as -u USERNAME.");
+				Console.Out.WriteLine("-c FILENAME            Specifies the file name of the certificate to use to authenticate call, using mTLS.");
+				Console.Out.WriteLine("-crt FILENAME          Same as -c FILENAME.");
+				Console.Out.WriteLine("-cert FILENAME         Same as -c FILENAME.");
+				Console.Out.WriteLine("-certificate FILENAME  Same as -c FILENAME.");
 				Console.Out.WriteLine();
-				Console.Out.WriteLine("-p PASSWORD         Specifies the password to use when authenticating the user name.");
-				Console.Out.WriteLine("-pwd PASSWORD       Same as -p PASSWORD.");
-				Console.Out.WriteLine("-password PASSWORD  Same as -p PASSWORD.");
+				Console.Out.WriteLine("-p PASSWORD            Specifies the password to use when authenticating the user name.");
+				Console.Out.WriteLine("-pwd PASSWORD          Same as -p PASSWORD.");
+				Console.Out.WriteLine("-password PASSWORD     Same as -p PASSWORD.");
 				Console.Out.WriteLine();
-				Console.Out.WriteLine("-t TOKEN_ID         Specifies the ID of the token to add a note to.");
-				Console.Out.WriteLine("-tid TOKEN_ID       Same as -t TOKEN_ID.");
-				Console.Out.WriteLine("-token TOKEN_ID     Same as -t TOKEN_ID.");
-				Console.Out.WriteLine("-tokenid TOKEN_ID   Same as -t TOKEN_ID.");
+				Console.Out.WriteLine("-t TOKEN_ID            Specifies the ID of the token to add a note to.");
+				Console.Out.WriteLine("-tid TOKEN_ID          Same as -t TOKEN_ID.");
+				Console.Out.WriteLine("-token TOKEN_ID        Same as -t TOKEN_ID.");
+				Console.Out.WriteLine("-tokenid TOKEN_ID      Same as -t TOKEN_ID.");
 				Console.Out.WriteLine();
-				Console.Out.WriteLine("-n NOTE             Specifies the contents of the note, in-line. Can be text or XML.");
-				Console.Out.WriteLine("-note NOTE          Same as -n NOTE.");
+				Console.Out.WriteLine("-n NOTE                Specifies the contents of the note, in-line. Can be text or XML.");
+				Console.Out.WriteLine("-note NOTE             Same as -n NOTE.");
 				Console.Out.WriteLine();
-				Console.Out.WriteLine("-f FILENAME         Specifies the file-name of the contents of the note. Can be a text or XML file.");
-				Console.Out.WriteLine("-fn FILENAME        Same as -f FILENAME.");
-				Console.Out.WriteLine("-file FILENAME      Same as -f FILENAME.");
-				Console.Out.WriteLine("-filename FILENAME  Same as -f FILENAME.");
+				Console.Out.WriteLine("-f FILENAME            Specifies the file-name of the contents of the note. Can be a text or XML file.");
+				Console.Out.WriteLine("-fn FILENAME           Same as -f FILENAME.");
+				Console.Out.WriteLine("-file FILENAME         Same as -f FILENAME.");
+				Console.Out.WriteLine("-filename FILENAME     Same as -f FILENAME.");
 
 				if (c == 1)
 					return 0;
@@ -133,16 +135,16 @@ internal class Program
 				DomainName = Console.In.ReadLine();
 			}
 
-			while (string.IsNullOrEmpty(UserName))
+			while (string.IsNullOrEmpty(CertificateFileName))
 			{
-				Console.Out.Write("User name: ");
-				UserName = Console.In.ReadLine();
+				Console.Out.Write("Certificate file name: ");
+				CertificateFileName = Console.In.ReadLine();
 			}
 
-			while (string.IsNullOrEmpty(Password))
+			while (string.IsNullOrEmpty(CertificatePassword))
 			{
-				Console.Out.Write("Password: ");
-				Password = Console.In.ReadLine();
+				Console.Out.Write("Certificate Password: ");
+				CertificatePassword = Console.In.ReadLine();
 			}
 
 			while (string.IsNullOrEmpty(TokenId))
@@ -166,7 +168,7 @@ internal class Program
 
 			TypesLoader.Initialize();
 
-			object Result = await ExternalNotes.AddNote(DomainName, UserName, Password, TokenId, Note);
+			object Result = await ExternalNotes.AddNote(DomainName, CertificateFileName, CertificatePassword, TokenId, Note);
 
 			Console.Out.WriteLine("Note added...");
 			Console.Out.WriteLine("Response: " + Expression.ToString(Result));

@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System.Security.Cryptography.X509Certificates;
+using System.Xml;
 using Waher.Content;
 using Waher.Content.Xml;
 
@@ -13,30 +14,41 @@ namespace NeuroFeatureNotes
 		/// Adds a note (either text or XML) to a Neuro-Feature token.
 		/// </summary>
 		/// <param name="DomainName">Domain-name of Neuron hosting the token.</param>
-		/// <param name="UserName">User name to use when logging in.</param>
-		/// <param name="Password">Password to use with <paramref name="UserName"/>.</param>
+		/// <param name="CertificateFileName">File name of certificate to use for mTLS authentication.</param>
+		/// <param name="CertificatePassword">Password to use with <paramref name="CertificateFileName"/>.</param>
 		/// <param name="TokenId">ID token Neuro-Feature token.</param>
 		/// <param name="Note">Note to add (either text or XML).</param>
-		public static async Task<object> AddNote(string DomainName, string UserName, string Password, string TokenId, string Note)
+		public static Task<object> AddNote(string DomainName, string CertificateFileName, string CertificatePassword, 
+			string TokenId, string Note)
 		{
+			X509Certificate2 Certificate = new X509Certificate2(CertificateFileName, CertificatePassword);
+			return AddNote(DomainName, Certificate, TokenId, Note);
+		}
+
+		/// <summary>
+		/// Adds a note (either text or XML) to a Neuro-Feature token.
+		/// </summary>
+		/// <param name="DomainName">Domain-name of Neuron hosting the token.</param>
+		/// <param name="Certificate">Certificate for mTLS authentication.</param>
+		/// <param name="TokenId">ID token Neuro-Feature token.</param>
+		/// <param name="Note">Note to add (either text or XML).</param>
+		public static async Task<object> AddNote(string DomainName, X509Certificate Certificate, string TokenId, string Note)
+		{
+			if (Certificate is null)
+				throw new ArgumentNullException(nameof(Certificate));
+
 			if (!Uri.TryCreate("https://" + DomainName + "/AddNote/" + TokenId, UriKind.Absolute, out Uri? ParsedUri))
 				throw new Exception("Invalid domain name or Token ID.");
-			
-			KeyValuePair<string, string>[] Headers =
-			[
-				new KeyValuePair<string, string>("WWW-Authenticate", "Basic " + Convert.ToBase64String(
-					InternetContent.ISO_8859_1.GetBytes(UserName + ":" + Password)))
-			];
 
 			if (XML.IsValidXml(Note))
 			{
 				XmlDocument Doc = new();
 				Doc.LoadXml(Note);
 			
-				return await InternetContent.PostAsync(ParsedUri, Doc, Headers);
+				return await InternetContent.PostAsync(ParsedUri, Doc, Certificate);
 			}
 			else
-				return await InternetContent.PostAsync(ParsedUri, Note, Headers);
+				return await InternetContent.PostAsync(ParsedUri, Note, Certificate);
 		}
 	}
 }
