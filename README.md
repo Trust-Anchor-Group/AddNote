@@ -13,6 +13,35 @@ This repository contains the following projects:
 | [AddNote](AddNote)                     | Command-line tool you can use to automate adding external notes from script. |
 | [NeuroFeatureNotes](NeuroFeatureNotes) | Class library (and nuget) for adding external notes to Neuro-Feature tokens. |
 
+Adding a note via Library
+-----------------------------
+
+Add the [NeuroFeatureNotes nuget](https://www.nuget.org/packages/NeuroFeatureNotes) to your project, and use the *namespace*
+`NeuroFeatureNotes`. The static `ExternalNotes` class contains two methods that allow you to add external notes:
+
+```
+/// <summary>
+/// Adds a note (either text or XML) to a Neuro-Feature token.
+/// </summary>
+/// <param name="DomainName">Domain-name of Neuron hosting the token.</param>
+/// <param name="CertificateFileName">File name of certificate to use for mTLS authentication.</param>
+/// <param name="CertificatePassword">Password to use with <paramref name="CertificateFileName"/>.</param>
+/// <param name="TokenId">ID token Neuro-Feature token.</param>
+/// <param name="Note">Note to add (either text or XML).</param>
+public static Task<object> AddNote(string DomainName, string CertificateFileName, string CertificatePassword, 
+	string TokenId, string Note);
+
+/// <summary>
+/// Adds a note (either text or XML) to a Neuro-Feature token.
+/// </summary>
+/// <param name="DomainName">Domain-name of Neuron hosting the token.</param>
+/// <param name="Certificate">Certificate for mTLS authentication.</param>
+/// <param name="TokenId">ID token Neuro-Feature token.</param>
+/// <param name="Note">Note to add (either text or XML).</param>
+public static async Task<object> AddNote(string DomainName, X509Certificate Certificate, string TokenId, string Note);
+```
+
+
 Command-line arguments for **AddNote** command
 --------------------------------------------------
 
