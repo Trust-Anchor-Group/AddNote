@@ -21,7 +21,7 @@ namespace NeuroFeatureNotes
 		public static Task<object> AddNote(string DomainName, string CertificateFileName, string CertificatePassword, 
 			string TokenId, string Note)
 		{
-			X509Certificate2 Certificate = new X509Certificate2(CertificateFileName, CertificatePassword);
+			X509Certificate2 Certificate = new(CertificateFileName, CertificatePassword);
 			return AddNote(DomainName, Certificate, TokenId, Note);
 		}
 
@@ -34,8 +34,7 @@ namespace NeuroFeatureNotes
 		/// <param name="Note">Note to add (either text or XML).</param>
 		public static async Task<object> AddNote(string DomainName, X509Certificate Certificate, string TokenId, string Note)
 		{
-			if (Certificate is null)
-				throw new ArgumentNullException(nameof(Certificate));
+			ArgumentNullException.ThrowIfNull(Certificate);
 
 			if (!Uri.TryCreate("https://" + DomainName + "/AddNote/" + TokenId, UriKind.Absolute, out Uri? ParsedUri))
 				throw new Exception("Invalid domain name or Token ID.");
