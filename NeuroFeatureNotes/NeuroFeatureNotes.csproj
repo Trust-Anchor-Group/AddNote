@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>NeuroFeatureNotes</PackageId>
     <Title>Neuro-Feature Notes</Title>
-    <Version>1.0.1</Version>
+    <Version>1.1.0</Version>
     <Authors>Peter Waher</Authors>
     <Company>Trust Anchor Group AB</Company>
     <Product>TAG Neuron</Product>
@@ -18,8 +18,8 @@
     <RepositoryUrl>https://github.com/Trust-Anchor-Group/AddNote</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>TAG Neuron Neuro-Features Notes</PackageTags>
-    <AssemblyVersion>1.0.1</AssemblyVersion>
-    <FileVersion>1.0.1</FileVersion>
+    <AssemblyVersion>1.1.0</AssemblyVersion>
+    <FileVersion>1.1.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
