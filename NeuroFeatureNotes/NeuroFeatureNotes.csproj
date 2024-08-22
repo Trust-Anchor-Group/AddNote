@@ -5,7 +5,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageId>NeuroFeatureNotes</PackageId>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<PackageId>NeuroFeatureNotes</PackageId>
     <Title>Neuro-Feature Notes</Title>
     <Version>1.1.0</Version>
     <Authors>Peter Waher</Authors>
