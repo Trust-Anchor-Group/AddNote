@@ -39,15 +39,21 @@ namespace NeuroFeatureNotes
 			if (!Uri.TryCreate("https://" + DomainName + "/AddNote/" + TokenId, UriKind.Absolute, out Uri? ParsedUri))
 				throw new Exception("Invalid domain name or Token ID.");
 
+			ContentResponse Content;
+
 			if (XML.IsValidXml(Note))
 			{
 				XmlDocument Doc = new();
 				Doc.LoadXml(Note);
 			
-				return await InternetContent.PostAsync(ParsedUri, Doc, Certificate);
+				Content = await InternetContent.PostAsync(ParsedUri, Doc, Certificate);
 			}
 			else
-				return await InternetContent.PostAsync(ParsedUri, Note, Certificate);
+				Content = await InternetContent.PostAsync(ParsedUri, Note, Certificate);
+
+			Content.AssertOk();
+
+			return Content.Decoded;
 		}
 	}
 }
