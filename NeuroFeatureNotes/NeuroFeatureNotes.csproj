@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Waher.Content" Version="3.1.0" />
+    <PackageReference Include="Waher.Content" Version="3.2.0" />
     <PackageReference Include="Waher.Content.Xml" Version="3.0.0" />
   </ItemGroup>
 
